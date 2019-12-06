@@ -1,7 +1,6 @@
-import pandas as pd
-import numpy as np
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
+import numpy as np
+import pandas as pd
 from sklearn.ensemble import ExtraTreesRegressor
 from sklearn.metrics import mean_squared_error
 
@@ -98,6 +97,9 @@ mse_2 = np.zeros(iterations)
 
 df_train = pd.read_csv('fx_train.csv')
 df_test = pd.read_csv('fx_test.csv').truncate(after=25)
+
+Y_test = []
+pred_test_2 = []
 
 for i in range(iterations):
     # Training Set
