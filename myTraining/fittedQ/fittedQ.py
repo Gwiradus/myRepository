@@ -19,8 +19,8 @@ T = np.linspace(0, 23, hours).astype(int)  # Time t (hours)
 X = np.linspace(0, 100, 11)  # State space X (SOC)
 U = [-1, 0, 1]  # Action space U (-1: discharge, 0: do nothing, 1: charge)
 P = 3 - np.sin(0.5 * T)  # Prices
-gamma = 1  # Discount factor
 epsilon = 0.85
+gamma = 1  # Discount factor
 
 trees = []
 model = []
