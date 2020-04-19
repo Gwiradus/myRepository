@@ -7,7 +7,7 @@ np.random.seed(0)
 
 
 def inverse_normal_cdf(mean, sd):
-    """Inverse of Rayleigh cumulative distribution function"""
+    """Inverse of normal cumulative distribution function"""
     return np.random.normal(mean, sd, 1)
 
 
@@ -21,7 +21,7 @@ def truncate_normal(mean, sd, min_value, max_value, size):
     return y_list
 
 
-def ev_single_boundary(time, time_vector, energy_req, power_max=6.6):
+def ev_single_boundary(time, time_vector, energy_req, power_max=3.3):
     """Function to find the max min energy boundaries of a single EV"""
     arrive_time = time_vector[0]
     depart_time = time_vector[1]
@@ -35,7 +35,7 @@ def ev_single_boundary(time, time_vector, energy_req, power_max=6.6):
         return [energy_req, energy_req]
 
 
-def ev_fleet_boundary(time, arrive_vector, depart_vector, energy_req_vector, number_of_evs, power_max=6.6):
+def ev_fleet_boundary(time, arrive_vector, depart_vector, energy_req_vector, number_of_evs, power_max=3.3):
     """Function to find the max min energy boundaries of a fleet of EVs"""
     e_max = 0
     e_min = 0
@@ -54,7 +54,7 @@ def initialise_fleet(number_of_evs):
     t_max = 18
     arrive_time = truncate_normal(8, 0.5, t_min, 9, number_of_evs)
     depart_time = truncate_normal(17, 0.5, 16, t_max, number_of_evs)
-    energy_req = np.array([(inverse_normal_cdf(70, 20) * 0.174) for i in range(number_of_evs)])
+    energy_req = np.array([(inverse_normal_cdf(70, 20) * 0.174) for _ in range(number_of_evs)])
     p_max = 3.3  # kW
     e_max = []
     e_min = []
@@ -66,8 +66,8 @@ def initialise_fleet(number_of_evs):
         e_max.append(energy[1])
         time.append(t)
         price.append(spot_price(t))
-    e_min[len(e_min) - 1] = e_min[len(e_min) - 3]
-    e_min[len(e_min) - 2] = e_min[len(e_min) - 3]
+    # e_min[len(e_min) - 1] = e_min[len(e_min) - 3]
+    # e_min[len(e_min) - 2] = e_min[len(e_min) - 3]
     e_min.append(e_min[len(e_min)-1])
     e_max.append(e_max[len(e_max)-1])
     return e_min, e_max, time, price

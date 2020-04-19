@@ -1,7 +1,8 @@
 """Main Script"""
+import numpy as np
+
 import ev_fleet_model as fleet
 import mip as mip
-import numpy as np
 
 
 def export_output():
@@ -34,7 +35,7 @@ for k in range(8):
             else:
                 u_k = np.random.choice(U)  # kW of charging power drawn
             u_index = np.where(u_k == U)[0][0]
-            x_k1, r_k = fleet.environment(t, x_k, u_k * n_ev * charger, [min_e[i], max_e[i]])
+            x_k1, r_k = fleet.environment(t, x_k, u_k * n_ev * charger, [min_e[i+1], max_e[i+1]])
             r_cum += r_k
             a = Q[i][x_index][u_index]
             b = np.min(Q[i + 1][np.where(round(x_k1.item()) == X)[0][0], :])

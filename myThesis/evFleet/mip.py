@@ -25,31 +25,31 @@ def solve_mip(n_ev, charger, price, min_e, max_e):
                                  + price[8] * u8 + price[9] * u9 + price[10] * u10 + price[11] * u11)
 
     # Constraints:
-    lp_prob += n_ev * charger * u0 >= min_e[0]
-    lp_prob += n_ev * charger * (u0 + u1) >= min_e[1]
-    lp_prob += n_ev * charger * (u0 + u1 + u2) >= min_e[2]
-    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3) >= min_e[3]
-    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3 + u4) >= min_e[4]
-    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3 + u4 + u5) >= min_e[5]
-    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3 + u4 + u5 + u6) >= min_e[6]
-    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3 + u4 + u5 + u6 + u7) >= min_e[7]
-    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3 + u4 + u5 + u6 + u7 + u8) >= min_e[8]
-    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3 + u4 + u5 + u6 + u7 + u8 + u9) >= min_e[9]
-    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3 + u4 + u5 + u6 + u7 + u8 + u9 + u10) >= min_e[10]
-    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3 + u4 + u5 + u6 + u7 + u8 + u9 + u10 + u11) >= min_e[11]
+    lp_prob += n_ev * charger * u0 >= min_e[1]
+    lp_prob += n_ev * charger * (u0 + u1) >= min_e[2]
+    lp_prob += n_ev * charger * (u0 + u1 + u2) >= min_e[3]
+    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3) >= min_e[4]
+    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3 + u4) >= min_e[5]
+    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3 + u4 + u5) >= min_e[6]
+    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3 + u4 + u5 + u6) >= min_e[7]
+    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3 + u4 + u5 + u6 + u7) >= min_e[8]
+    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3 + u4 + u5 + u6 + u7 + u8) >= min_e[9]
+    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3 + u4 + u5 + u6 + u7 + u8 + u9) >= min_e[10]
+    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3 + u4 + u5 + u6 + u7 + u8 + u9 + u10) >= min_e[11]
+    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3 + u4 + u5 + u6 + u7 + u8 + u9 + u10 + u11) >= min_e[12]
 
-    lp_prob += n_ev * charger * u0 <= max_e[0]
-    lp_prob += n_ev * charger * (u0 + u1) <= max_e[1]
-    lp_prob += n_ev * charger * (u0 + u1 + u2) <= max_e[2]
-    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3) <= max_e[3]
-    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3 + u4) <= max_e[4]
-    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3 + u4 + u5) <= max_e[5]
-    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3 + u4 + u5 + u6) <= max_e[6]
-    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3 + u4 + u5 + u6 + u7) <= max_e[7]
-    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3 + u4 + u5 + u6 + u7 + u8) <= max_e[8]
-    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3 + u4 + u5 + u6 + u7 + u8 + u9) <= max_e[9]
-    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3 + u4 + u5 + u6 + u7 + u8 + u9 + u10) <= max_e[10]
-    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3 + u4 + u5 + u6 + u7 + u8 + u9 + u10 + u11) <= max_e[11]
+    lp_prob += n_ev * charger * u0 <= max_e[1]
+    lp_prob += n_ev * charger * (u0 + u1) <= max_e[2]
+    lp_prob += n_ev * charger * (u0 + u1 + u2) <= max_e[3]
+    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3) <= max_e[4]
+    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3 + u4) <= max_e[5]
+    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3 + u4 + u5) <= max_e[6]
+    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3 + u4 + u5 + u6) <= max_e[7]
+    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3 + u4 + u5 + u6 + u7) <= max_e[8]
+    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3 + u4 + u5 + u6 + u7 + u8) <= max_e[9]
+    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3 + u4 + u5 + u6 + u7 + u8 + u9) <= max_e[10]
+    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3 + u4 + u5 + u6 + u7 + u8 + u9 + u10) <= max_e[11]
+    lp_prob += n_ev * charger * (u0 + u1 + u2 + u3 + u4 + u5 + u6 + u7 + u8 + u9 + u10 + u11) <= max_e[12]
 
     lp_prob += u0 <= 1
     lp_prob += u1 <= 1
@@ -76,8 +76,8 @@ def solve_mip(n_ev, charger, price, min_e, max_e):
     #
     # print(p.value(lp_prob.objective))
 
-    mip_opt = [p.value(u0), p.value(u1), p.value(u2), p.value(u3), p.value(u4), p.value(u5),
-               p.value(u6), p.value(u7), p.value(u8), p.value(u9), p.value(u10), p.value(u11)]
+    mip_opt = [0, p.value(u0), p.value(u1), p.value(u2), p.value(u3), p.value(u4), p.value(u5),
+               p.value(u6), p.value(u7), p.value(u8), p.value(u9), p.value(u10)]
     mip_opt[:] = [x * n_ev * charger for x in mip_opt]
     value = p.value(lp_prob.objective)
     return mip_opt, value

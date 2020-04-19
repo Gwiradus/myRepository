@@ -1,13 +1,13 @@
 """Main Script"""
 import random
 
-import ev_fleet_model as fleet
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import qLearning_fittedQ as qLearn
-from mpl_toolkits.mplot3d import Axes3D
 from sklearn.ensemble import ExtraTreesRegressor
+
+import ev_fleet_model as fleet
+import qLearning_fittedQ as qLearn
 
 random.seed(0)
 
@@ -86,11 +86,11 @@ for d in range(days):
             a = []
             for u in U:
                 a.append(tree_model.predict(pd.DataFrame({'X': [x_t[i]], 'U': [u], 't': [t]})))
-            u_t[i] = U[np.random.choice(np.where(a == np.asarray(a).min( ))[0])]
+            u_t[i] = U[np.random.choice(np.where(a == min(np.asarray(a)))[0])]
         else:
             u_t[i] = np.random.choice(U)  # kW of charging power drawn
 
-        x_t1[i], r_t[i] = fleet.environment(t, x_t[i], u_t[i] * n_ev * charger, [min_e[i+1], max_e[i+1]])
+        x_t1[i], r_t[i] = fleet.environment(t, x_t[i], u_t[i] * n_ev * charger, [min_e[i + 1], max_e[i + 1]])
         r_cum += r_t[i]
         x_k = x_t1[i]
 
@@ -99,7 +99,7 @@ for d in range(days):
     r_T = np.concatenate((r_T, r_t))
     x_T1 = np.concatenate((x_T1, x_t1))
     rew.append(r_cum)
-    print("Day = ", d)
+    print("Day = ", d + 1)
     print("Cost =", r_cum)
     print("Epsilon = ", epsilon)
 
@@ -132,7 +132,7 @@ ax_3.legend()
 ax_1 = fig_1.add_subplot(312)
 ax_1.plot(t_time, min_e[:-1], label='Minimum Energy', linestyle='--')
 ax_1.plot(t_time, max_e[:-1], label='Maximum Energy', linestyle='--')
-ax_1.plot(t_time, x_t1, label='Energy')
+ax_1.plot(t_time, x_t, label='Energy')
 ax_1.plot(t_time, np.cumsum(mip_opt), label='MIP Optimal', linestyle='-.')
 ax_1.set_xlabel('Hour')
 ax_1.set_ylabel('State of Energy (kWh)')
@@ -151,22 +151,22 @@ fig_1.show()
 print("Cost value - Q Learning = " + str(R_mean[-1]))
 print("Cost value - Fitted Q-iteration = " + str(r_cum))
 print("Cost value - MIP = " + str(value))
-print("Error = " + str(100*(r_cum-value)/value) + "%")
+print("Error = " + str(100 * (r_cum - value) / value) + "%")
 
-for time in t_time:
-    Q_tree_app = np.zeros((len(X), len(U)))
-    for xi, x in enumerate(X):
-        for ui, u in enumerate(U):
-            Q_tree_app[xi][ui] = tree_model.predict(pd.DataFrame({'X': [x], 'U': [u], 't': [time]}))
-
-    fig_2 = plt.figure(num='Hour ' + str(time))
-    ax = Axes3D(fig_2)
-    Xs, Us = np.meshgrid(X, U)
-    ax.scatter(Xs, Us, [*zip(*Q[11])], c='r', marker='o', label='Q-function benchmark')
-    # ax.scatter(Xs, Us, [*zip(*Q_tree)], c='b', marker='o', label='Q-function approximation')
-    ax.scatter(Xs, Us, [*zip(*Q_tree_app)], c='g', marker='o', label='Q-function approximation')
-    ax.set_xlabel('State space (kWh)')
-    ax.set_ylabel('Action space (kWp)')
-    ax.legend()
-    ax.view_init(30, -60)
-    fig_2.show()
+# for time in t_time:
+#     Q_tree_app = np.zeros((len(X), len(U)))
+#     for xi, x in enumerate(X):
+#         for ui, u in enumerate(U):
+#             Q_tree_app[xi][ui] = tree_model.predict(pd.DataFrame({'X': [x], 'U': [u], 't': [time]}))
+#
+#     fig_2 = plt.figure(num='Hour ' + str(time))
+#     ax = Axes3D(fig_2)
+#     Xs, Us = np.meshgrid(X, U)
+#     ax.scatter(Xs, Us, [*zip(*Q[11])], c='r', marker='o', label='Q-function benchmark')
+#     # ax.scatter(Xs, Us, [*zip(*Q_tree)], c='b', marker='o', label='Q-function approximation')
+#     ax.scatter(Xs, Us, [*zip(*Q_tree_app)], c='g', marker='o', label='Q-function approximation')
+#     ax.set_xlabel('State space (kWh)')
+#     ax.set_ylabel('Action space (kWp)')
+#     ax.legend()
+#     ax.view_init(30, -60)
+#     fig_2.show()
